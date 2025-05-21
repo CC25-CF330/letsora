@@ -71,22 +71,22 @@
             
             <div class="relative w-full max-w-xs mx-auto">
                 <div class="bg-gradient-to-b from-[#0f1226] to-[#1a1c2e] rounded-2xl p-6 text-center text-white relative" style="box-shadow: 0 0 15px rgb(15 18 38 / 0.5)">
-                 <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-[#0f1226] border-4 border-white flex items-center justify-center text-white font-semibold text-lg select-none">
-                  AI
-                 </div>
-                 <p class="mt-6 font-semibold text-lg leading-tight select-none">
-                  Tanya Sora Aja!
-                 </p>
-                 <p class="mt-2 text-xs leading-snug select-none">
-                  Bingung cara ngatur jadwal?
-                  <br/>
-                  AI siap membantumu 24/7.
-                 </p>
-                 <button class="mt-6 bg-white text-black rounded-md px-6 py-2 text-sm font-semibold select-none hover:bg-gray-100 transition" type="button">
-                  Chat Sekarang
-                 </button>
+                    <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-[#0f1226] border-4 border-white flex items-center justify-center text-white font-semibold text-lg select-none">
+                    AI
+                    </div>
+                    <p class="mt-6 font-semibold text-lg leading-tight select-none">
+                    Tanya Sora Aja!
+                    </p>
+                    <p class="mt-2 text-xs leading-snug select-none">
+                    Bingung cara ngatur jadwal?
+                    <br/>
+                    AI siap membantumu 24/7.
+                    </p>
+                    <button class="mt-6 bg-white text-black rounded-md px-6 py-2 text-sm font-semibold select-none hover:bg-gray-100 transition" type="button">
+                    Chat Sekarang
+                    </button>
                 </div>
-               </div>
+            </div>
         </nav>
     </aside>
 
@@ -97,7 +97,7 @@
             <header class="flex items-center justify-between mb-8">
                 <div>
                     <h1 class="text-2xl font-semibold dark:text-white">Hi, Letsora</h1>
-                    <p class="text-sm text-gray-500">Ayo selesaikan tugasmu hari ini!</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Ayo selesaikan tugasmu hari ini!</p>
                 </div>
                 <div class="flex items-center space-x-6">
                     <button aria-label="Notifications" class="relative text-gray-400 hover:text-gray-600">
@@ -114,11 +114,11 @@
                     <!-- Timer and Activity Section -->
                     <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Timer Card -->
-                        <div class="bg-[#0F1226] rounded-xl p-6 text-white">
+                        <div class="bg-white dark:bg-[#1f2937] rounded-xl p-6 text-white">
                             <div class="flex flex-col items-center space-y-4">
                                 <div class="relative w-32 h-32">
                                     <svg class="absolute top-0 left-0 w-32 h-32" viewBox="0 0 100 100">
-                                        <circle cx="50" cy="50" r="45" stroke="#1E293B" stroke-width="10" fill="none"/>
+                                        <circle cx="50" cy="50" r="45" stroke="white" stroke-width="10" fill="none"/>
                                         <circle cx="50" cy="50" r="45" stroke="#4F46E5" stroke-width="10" fill="none"
                                             stroke-dasharray="282.6" stroke-dashoffset="94.2" transform="rotate(-90 50 50)"/>
                                     </svg>
@@ -131,7 +131,7 @@
                                     <img src="https://storage.googleapis.com/a1aa/image/936ec31c-f1b0-4765-ab0d-bd5ec1ad9fdb.jpg" alt="Profile" class="w-6 h-6 rounded-full">
                                     <div class="flex-1">
                                         <div class="text-sm truncate">Mustafa Jaan E Rehmat Pe</div>
-                                        <div class="text-xs text-gray-400 truncate">Atif Aslam, Boss Menn</div>
+                                        <div class="text-xs text-gray-500 dark:text-gray-400 truncate">Atif Aslam, Boss Menn</div>
                                     </div>
                                     <button class="w-8 h-8 rounded-full bg-white text-[#0F1226] flex items-center justify-center">
                                         <i class="fas fa-pause"></i>
@@ -142,10 +142,10 @@
                         </div>
 
                         <!-- Activity Chart -->
-                        <div class="bg-white rounded-xl p-6">
+                        <div class="bg-white dark:bg-[#1f2937] rounded-xl p-6">
                             <div class="flex justify-between items-center mb-4">
-                                <h2 class="text-sm font-semibold">Aktivitas</h2>
-                                <select class="text-xs text-gray-500 border rounded px-3 py-1">
+                                <h2 class="text-sm dark:text-white font-semibold">Aktivitas</h2>
+                                <select class="bg-white dark:bg-[#111827] text-xs text-gray-500 dark:text-gray-400 border rounded px-3 py-1">
                                     <option>Minggu Ini</option>
                                     <option>Minggu Lalu</option>
                                     <option>Bulan Ini</option>
@@ -154,13 +154,13 @@
                             <div class="relative h-40">
                                 <div class="absolute inset-0">
                                     <svg class="w-full h-full" viewBox="0 0 300 100">
-                                        <path d="M20 70 Q60 20 100 50 T180 40 T260 60" fill="none" stroke="#111827" stroke-width="3"/>
+                                        <path d="M20 70 Q60 20 100 50 T180 40 T260 60" fill="none" stroke="white" stroke-width="3"/>
                                         <circle cx="212" cy="25" r="6" fill="#4F46E5" stroke="#111827" stroke-width="2"/>
                                         <rect x="213" y="0" width="40" height="20" rx="4" fill="#111827"/>
                                         <text x="233" y="14" fill="white" text-anchor="middle" font-size="10" font-weight="600">2 Task</text>
                                     </svg>
                                 </div>
-                                <div class="absolute bottom-0 left-0 right-0 flex justify-between text-xs text-gray-500 px-2">
+                                <div class="absolute bottom-0 left-0 right-0 flex justify-between text-xs text-gray-500 dark:text-gray-400 px-2">
                                     <span>S</span>
                                     <span>M</span>
                                     <span>T</span>
@@ -174,9 +174,9 @@
                     </section>
 
                     <!-- Schedule Section -->
-                    <section class="bg-gray-100 rounded-xl p-6">
+                    <section class="bg-white dark:bg-[#1f2937] rounded-xl p-6">
                         <div class="flex justify-between items-center mb-6">
-                            <div class="flex space-x-12 text-sm font-medium text-gray-600">
+                            <div class="flex space-x-12 text-sm font-medium text-gray-500 dark:text-gray-400">
                                 <span>Time</span>
                                 <span>Course</span>
                             </div>
@@ -190,8 +190,8 @@
                             <!-- Matematika Teknik -->
                             <div class="flex space-x-6">
                                 <div class="w-20">
-                                    <div class="text-sm font-medium text-gray-600">08:35</div>
-                                    <div class="text-xs text-gray-500">13:05</div>
+                                    <div class="text-sm font-medium text-gray-500 dark:text-gray-400">08:35</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">13:05</div>
                                 </div>
                                 <div class="flex-1 bg-[#4F46E5] rounded-xl p-4 text-white">
                                     <div class="flex justify-between items-center">
@@ -216,8 +216,8 @@
                             <!-- Pemrograman Dasar -->
                             <div class="flex space-x-6">
                                 <div class="w-20">
-                                    <div class="text-sm font-medium text-gray-600">13:05</div>
-                                    <div class="text-xs text-gray-500">15:00</div>
+                                    <div class="text-sm font-medium text-gray-500 dark:text-gray-400">13:05</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">15:00</div>
                                 </div>
                                 <div class="flex-1 bg-[#4F46E5] rounded-xl p-4 text-white">
                                     <div class="flex justify-between items-center">
@@ -242,8 +242,8 @@
                             <!-- Rapat Himpunan -->
                             <div class="flex space-x-6">
                                 <div class="w-20">
-                                    <div class="text-sm font-medium text-gray-600">17:00</div>
-                                    <div class="text-xs text-gray-500">18:30</div>
+                                    <div class="text-sm font-medium text-gray-500 dark:text-gray-400">17:00</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">18:30</div>
                                 </div>
                                 <div class="flex-1 bg-[#4F46E5] rounded-xl p-4 text-white">
                                     <div class="flex justify-between items-center">
@@ -268,8 +268,8 @@
                             <!-- Cafee Zero -->
                             <div class="flex space-x-6">
                                 <div class="w-20">
-                                    <div class="text-sm font-medium text-gray-600">20:00</div>
-                                    <div class="text-xs text-gray-500">22:05</div>
+                                    <div class="text-sm font-medium text-gray-500 dark:text-gray-400">20:00</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">22:05</div>
                                 </div>
                                 <div class="flex-1 bg-[#4F46E5] rounded-xl p-4 text-white">
                                     <div class="flex justify-between items-center">
@@ -295,19 +295,19 @@
                 </div>
 
                 <!-- Right Content (Profile, Calendar, Night Owl) -->
-                <div class="lg:col-span-4 bg-white rounded-xl p-6 space-y-8">
+                <div class="lg:col-span-4 bg-white dark:bg-[#1f2937] rounded-xl p-6 space-y-8">
                     <!-- Profile Section -->
                     <section>
                         <div class="flex justify-between items-center mb-6">
-                            <h2 class="font-semibold">Profile</h2>
+                            <h2 class="font-semibold dark:text-white">Profile</h2>
                             <button class="text-[#4F46E5]">
                                 <i class="fas fa-edit"></i>
                             </button>
                         </div>
                         <div class="flex flex-col items-center text-center">
                             <img src="https://storage.googleapis.com/a1aa/image/d5540fe8-fb38-45d8-9ffe-584fa5aee26d.jpg" alt="Profile" class="w-24 h-24 rounded-full mb-4">
-                            <h3 class="font-semibold text-lg mb-2">Anna White</h3>
-                            <p class="text-sm text-gray-500">D4 Teknik Multimedia dan Jaringan</p>
+                            <h3 class="font-semibold text-lg mb-2 dark:text-white">Anna White</h3>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">D4 Teknik Multimedia dan Jaringan</p>
                         </div>
                     </section>
 

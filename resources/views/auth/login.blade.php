@@ -5,8 +5,6 @@
     <form method="POST" action="{{ route('login') }}" style="max-width: 400px; margin: auto;">
         @csrf
 
-        <!-- Title -->
-        <h2 style="text-align: center; margin-bottom: 20px;">Login</h2>
 
         <!-- Email -->
         <div style="margin-bottom: 15px;">

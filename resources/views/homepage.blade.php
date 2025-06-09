@@ -35,7 +35,7 @@
         <nav class="flex flex-col justify-between h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
             <div>
                 <a href="/" class="flex items-center mb-5 ps-2.5">
-                    <img src="http://letsora.test/img/logo-letsora-light.png" alt="" class="size-10">
+                    <img src="{{ asset('img/logo-letsora-light.png') }}" alt="Logo" class="size-10">
                     <span class="ml-3 self-center font-semibold whitespace-nowrap text-3xl dark:text-white">Letsora</span>
                 </a>
                 <ul class="space-y-2 font-medium">
@@ -228,7 +228,7 @@
                             </a>
                         </div>
                         <div class="flex flex-col items-center text-center">
-                            <img src="{{ auth()->user()->profile_photo_url }}" alt="Profile" class="w-24 h-24 rounded-full mb-4">
+                            <img src="{{ auth()->user()->photo ? asset('storage/' . auth()->user()->photo) : asset('img/profile-default.png') }}" alt="Foto Profil" class="rounded-full w-16 h-16 object-cover">
                             <h3 class="font-semibold text-lg mb-2 dark:text-white">{{ auth()->user()->name }}</h3>
                             <p class="text-sm text-gray-500 dark:text-white">{{ auth()->user()->major ?? 'Student' }}</p>
                         </div>

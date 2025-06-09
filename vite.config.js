@@ -9,6 +9,8 @@ export default defineConfig({
                 "resources/js/app.js",
                 "resources/js/timer.js",
                 "resources/js/calendar.js",
+                "resources/js/activity.js",
+                "resources/js/schedule.js",
             ],
             refresh: true,
         }),

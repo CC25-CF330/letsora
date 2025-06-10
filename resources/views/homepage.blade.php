@@ -28,7 +28,6 @@
     <!-- Main Content -->
     <div class="flex-1 sm:ml-64 h-screen">
         <main class="h-full p-6 md:p-10 overflow-y-auto">
-            <!-- Header -->
             @include('layouts.partials.header', [
                 'title' => 'Beranda',
                 'subtitle' => 'Ayo selesaikan tugasmu hari ini!'
@@ -152,7 +151,7 @@
                             </a>
                         </div>
                         <div class="flex flex-col items-center text-center">
-                            <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&color=7F9CF5&background=EBF4FF" alt="Photo Profile" class="w-24 h-24 rounded-full mb-4">
+                            <img src="{{ auth()->user()->photo ? asset('storage/' . auth()->user()->photo) : asset('img/profile-default.png') }}" alt="Foto Profil" class="rounded-full w-16 h-16 object-cover">
                             <h3 class="font-semibold text-lg mb-2 dark:text-white">{{ auth()->user()->name }}</h3>
                             <p class="text-sm text-gray-500 dark:text-white">{{ auth()->user()->major ?? 'Student' }}</p>
                         </div>

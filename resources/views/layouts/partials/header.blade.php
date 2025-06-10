@@ -7,10 +7,10 @@
         @endif
     </div>
     <div class="flex items-center space-x-6">
-        <button aria-label="Notifications" class="relative text-gray-400 hover:text-gray-600">
+        <button aria-label="Notifications" class="relative text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
             <i class="far fa-bell text-xl"></i>
-            <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-gray-100 dark:border-gray-900"></span>
+            <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white dark:border-gray-800"></span>
         </button>
-        <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&color=7F9CF5&background=EBF4FF" alt="Photo Profile" class="w-10 h-10 rounded-full object-cover">
+        <img src="{{ auth()->user()->photo ? asset('storage/' . auth()->user()->photo) : asset('img/profile-default.png') }}" alt="Foto Profil" class="rounded-full w-10 h-10 object-cover">
     </div>
 </header>

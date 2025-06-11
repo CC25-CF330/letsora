@@ -25,6 +25,7 @@ class Schedule extends Model
         'location',
         'instructor',
         'type',
+        'completed_at',
     ];
 
     /**
@@ -35,6 +36,7 @@ class Schedule extends Model
     protected $casts = [
         'start_time' => 'datetime',
         'end_time' => 'datetime',
+        'completed_at' => 'datetime',
     ];
 
     /**

@@ -227,6 +227,34 @@ window.editSchedule = function(id) {
     }
 }
 
+window.markScheduleAsCompleted = async function(id) {
+    if (!confirm("Apakah Anda yakin jadwal ini sudah selesai?")) return;
+
+    try {
+        const response = await axios.patch(`/schedule/${id}/complete`);
+        
+        // PERBAIKAN: API Resource untuk satu item tidak dibungkus 'data'.
+        const updatedSchedule = response.data; 
+
+        showNotification('Jadwal ditandai selesai!', 'success');
+
+        // Update data secara lokal, tanpa perlu refresh halaman
+        const index = window.scheduleData.findIndex(s => s.id == updatedSchedule.id);
+        if (index !== -1) {
+            window.scheduleData[index] = updatedSchedule;
+        }
+
+        // Render ulang tampilan list dan kalender dengan data yang sudah diupdate
+        updateListView(window.scheduleData);
+        calendar.removeAllEvents();
+        calendar.addEventSource(window.scheduleData.map(s => formatEvent(s)));
+
+    } catch (error) {
+        console.error("Error marking schedule as complete:", error);
+        showNotification("Gagal menandai jadwal.", 'error');
+    }
+}
+
 function toggleView(showCalendar) {
     document.getElementById("calendar-view").classList.toggle("hidden", !showCalendar);
     document.getElementById("list-view").classList.toggle("hidden", showCalendar);
@@ -282,11 +310,29 @@ function createScheduleListElement(schedule) {
     const startTime = new Date(schedule.start_time);
     const endTime = new Date(schedule.end_time);
     const color = getColorByType(schedule.type);
+    const isPast = new Date() > endTime; // Cek apakah waktu selesai sudah lewat
+
+    // Logika untuk menampilkan tombol atau badge status
+    let completionStatusHtml = '';
+    // Jika sudah lewat dan BELUM selesai, tampilkan tombol konfirmasi
+    if (isPast && !schedule.completed_at) {
+        completionStatusHtml = `
+            <button class="text-white hover:text-gray-200 p-1 text-xs bg-green-500 rounded-md shadow" onclick="markScheduleAsCompleted(${schedule.id})" title="Tandai Selesai">
+                <i class="fas fa-check"></i>
+            </button>`;
+    } 
+    // Jika SUDAH selesai, tampilkan badge
+    else if (schedule.completed_at) {
+        completionStatusHtml = `
+            <span class="text-white text-xs bg-gray-500/50 rounded-md p-1.5 flex items-center" title="Selesai pada ${new Date(schedule.completed_at).toLocaleString('id-ID')}">
+                <i class="fas fa-check-circle mr-1"></i>
+            </span>`;
+    }
 
     div.innerHTML = `
         <div class="w-20 text-center">
-            <div class="text-sm font-medium text-gray-500 dark:text-gray-400">${startTime.toLocaleTimeString('id-ID', {hour: '2-digit', minute: '2-digit'})}</div>
-            <div class="text-xs text-gray-500 dark:text-gray-500">${endTime.toLocaleTimeString('id-ID', {hour: '2-digit', minute: '2-digit'})}</div>
+            <div class="text-sm font-medium text-gray-500">${startTime.toLocaleTimeString('id-ID', {hour: '2-digit', minute: '2-digit'})}</div>
+            <div class="text-xs text-gray-500">${endTime.toLocaleTimeString('id-ID', {hour: '2-digit', minute: '2-digit'})}</div>
         </div>
         <div class="flex-1 rounded-xl p-4 text-white group-hover:opacity-90 transition" style="background-color: ${color}">
             <div class="flex justify-between items-center">
@@ -306,6 +352,7 @@ function createScheduleListElement(schedule) {
                         </div>
                     </div>
                     <div class="flex items-center space-x-2">
+                        ${completionStatusHtml}
                         <button class="text-white hover:text-gray-200 p-1" onclick="editSchedule(${schedule.id})" title="Edit"><i class="fas fa-edit"></i></button>
                         <button class="text-white hover:text-gray-200 p-1" onclick="deleteSchedule(${schedule.id})" title="Hapus"><i class="fas fa-trash"></i></button>
                     </div>

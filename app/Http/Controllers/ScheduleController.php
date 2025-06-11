@@ -133,6 +133,17 @@ class ScheduleController extends Controller
             }
         }
     }
+
+    public function markAsCompleted(Schedule $schedule)
+    {
+        if ($schedule->user_id !== Auth::id()) {
+            abort(403, 'This action is unauthorized.');
+        }
+
+        $schedule->update(['completed_at' => now()]);
+
+        return new ScheduleResource($schedule);
+    }
     
     public function show(Schedule $schedule)
     {

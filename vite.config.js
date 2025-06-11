@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import { defineConfig } from "vite";
 import laravel from "laravel-vite-plugin";
-=======
-import { defineConfig } from 'vite';
-import laravel from 'laravel-vite-plugin';
->>>>>>> 3ef3099052e14de089eebe2788b119aaee282291
 
 export default defineConfig({
     plugins: [

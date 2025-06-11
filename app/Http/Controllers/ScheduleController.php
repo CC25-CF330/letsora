@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ScheduleResource;
 use App\Models\Schedule;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -21,16 +22,21 @@ class ScheduleController extends Controller
 
         return view('schedule', compact('schedules'));
     }
-
+    
     public function store(Request $request)
     {
+        $user = Auth::user();
+        /** @var \App\Models\User $user */
+
+        $this->prepareTimezonesForValidation($request, $user->timezone);
+
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'start_time' => 'required|date',
-            'end_time' => 'required|date|after:start_time',
-            'location' => 'required|string|max:255',
-            'instructor' => 'required|string|max:255',
+            'end_time' => 'required|date|after_or_equal:start_time',
+            'location' => 'nullable|string|max:255',
+            'instructor' => 'nullable|string|max:255',
             'type' => 'required|in:class,meeting,personal'
         ]);
 
@@ -58,45 +64,59 @@ class ScheduleController extends Controller
 
         return response()->json($schedule);
     }
-
+    
     public function update(Request $request, Schedule $schedule)
     {
-        $this->authorize('update', $schedule);
+        if ($schedule->user_id !== Auth::id()) {
+            abort(403, 'This action is unauthorized.');
+        }
+
+        $user = Auth::user();
+        /** @var \App\Models\User $user */
+        
+        $this->prepareTimezonesForValidation($request, $user->timezone);
 
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'start_time' => 'required|date',
-            'end_time' => 'required|date|after:start_time',
-            'location' => 'required|string|max:255',
-            'instructor' => 'required|string|max:255',
-            'type' => 'required|in:class,meeting,personal'
+            'title' => 'sometimes|required|string|max:255',
+            'description' => 'sometimes|nullable|string',
+            'start_time' => 'sometimes|required|date',
+            'end_time' => 'sometimes|required|date|after_or_equal:start_time',
+            'location' => 'sometimes|nullable|string|max:255',
+            'instructor' => 'sometimes|nullable|string|max:255',
+            'type' => 'sometimes|required|in:class,meeting,personal'
         ]);
 
-        $schedule->update([
-            'title' => $validated['title'],
-            'description' => $validated['description'],
-            'start_time' => Carbon::parse($validated['start_time']),
-            'end_time' => Carbon::parse($validated['end_time']),
-            'location' => $validated['location'],
-            'instructor' => $validated['instructor'],
-            'type' => $validated['type']
-        ]);
+        if (isset($validated['type'])) {
+            $validated['type'] = strtolower($validated['type']);
+        }
 
-        return response()->json([
-            'message' => 'Schedule updated successfully',
-            'schedule' => $schedule
-        ]);
+        $schedule->update($validated);
+
+        return new ScheduleResource($schedule);
+    }
+    
+    protected function prepareTimezonesForValidation(Request $request, ?string $timezone)
+    {
+        if ($timezone) {
+            if ($request->filled('start_time')) {
+                $request->merge(['start_time' => Carbon::parse($request->start_time, $timezone)->utc()]);
+            }
+            if ($request->filled('end_time')) {
+                $request->merge(['end_time' => Carbon::parse($request->end_time, $timezone)->utc()]);
+            }
+        }
+    }
+    
+    public function show(Schedule $schedule)
+    {
+        if ($schedule->user_id !== Auth::id()) abort(403);
+        return new ScheduleResource($schedule);
     }
 
     public function destroy(Schedule $schedule)
     {
-        $this->authorize('delete', $schedule);
-
+        if ($schedule->user_id !== Auth::id()) abort(403);
         $schedule->delete();
-
-        return response()->json([
-            'message' => 'Schedule deleted successfully'
-        ]);
+        return response()->json(['message' => 'Schedule deleted successfully']);
     }
 }

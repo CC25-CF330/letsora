@@ -2,31 +2,34 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Models\Schedule;
-// use App\Models\Activity;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Schedule;
 
 class HomeController extends Controller
 {
+    /**
+     * Menampilkan halaman utama (homepage) dengan jadwal untuk hari ini.
+     */
     public function index()
     {
-        // Get today's schedules
-        $schedules = Schedule::where('user_id', Auth::id())
-            ->whereDate('start_time', Carbon::today())
+        $user = Auth::user();
+        /** @var \App\Models\User $user */
+        
+        $userTimezone = $user->timezone ?? config('app.timezone');
+
+        $startOfDay = now($userTimezone)->startOfDay();
+        $endOfDay = now($userTimezone)->endOfDay();
+
+        $schedulesToday = Schedule::where('user_id', $user->id)
+            ->whereBetween('start_time', [$startOfDay, $endOfDay])
             ->orderBy('start_time')
             ->get();
 
-        // Get weekly activities
-        // $activities = Activity::where('user_id', auth()->id())
-        //     ->whereBetween('date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
-        //     ->get()
-        //     ->groupBy(function ($activity) {
-        //         return Carbon::parse($activity->date)->format('l');
-        //     });
-
-        return view('homepage', compact('schedules'));
+        // Kirim jadwal DAN zona waktu pengguna ke view
+        return view('homepage', [
+            'schedules' => $schedulesToday,
+            'userTimezone' => $userTimezone, // <-- TAMBAHKAN INI
+        ]);
     }
 }

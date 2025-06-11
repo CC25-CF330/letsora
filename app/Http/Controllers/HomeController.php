@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Schedule;
 // use App\Models\Activity;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 class HomeController extends Controller
 {
     public function index()
     {
         // Get today's schedules
-        $schedules = Schedule::where('user_id', auth()->id())
+        $schedules = Schedule::where('user_id', Auth::id())
             ->whereDate('start_time', Carbon::today())
             ->orderBy('start_time')
             ->get();

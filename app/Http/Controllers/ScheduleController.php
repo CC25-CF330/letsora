@@ -5,12 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Schedule;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ScheduleController extends Controller
 {
+    use AuthorizesRequests;
     public function index()
     {
-        $schedules = Schedule::where('user_id', auth()->id())
+        $schedules = Schedule::where('user_id', Auth::id())
             ->orderBy('start_time')
             ->get();
 
@@ -30,7 +35,7 @@ class ScheduleController extends Controller
         ]);
 
         $schedule = Schedule::create([
-            'user_id' => auth()->id(),
+            'user_id' => Auth::id(),
             'title' => $validated['title'],
             'description' => $validated['description'],
             'start_time' => Carbon::parse($validated['start_time']),

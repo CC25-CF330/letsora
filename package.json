@@ -6,13 +6,18 @@
         "dev": "vite"
     },
     "devDependencies": {
+<<<<<<< HEAD
         "@tailwindcss/forms": "^0.5.10",
         "@tailwindcss/vite": "^4.1.7",
         "alpinejs": "^3.4.2",
+=======
+        "@tailwindcss/vite": "^4.0.0",
+>>>>>>> 3ef3099052e14de089eebe2788b119aaee282291
         "autoprefixer": "^10.4.21",
         "axios": "^1.8.2",
         "concurrently": "^9.0.1",
         "laravel-vite-plugin": "^1.2.0",
+<<<<<<< HEAD
         "postcss": "^8.5.3",
         "tailwindcss": "^3.4.17",
         "vite": "^6.2.4"
@@ -20,5 +25,10 @@
     "dependencies": {
         "flowbite": "^3.1.2",
         "fullcalendar": "^6.1.17"
+=======
+        "postcss": "^8.5.4",
+        "tailwindcss": "^3.4.17",
+        "vite": "^6.3.5"
+>>>>>>> 3ef3099052e14de089eebe2788b119aaee282291
     }
 }

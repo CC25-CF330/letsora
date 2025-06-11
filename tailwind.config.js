@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import defaultTheme from "tailwindcss/defaultTheme";
 import forms from "@tailwindcss/forms";
 import flowbite from "flowbite/plugin";
@@ -22,3 +23,17 @@ export default {
 
     plugins: [forms, flowbite],
 };
+=======
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    './resources/views/**/*.blade.php',
+    './resources/js/**/*.js',
+    './resources/css/**/*.css',],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+
+>>>>>>> 3ef3099052e14de089eebe2788b119aaee282291

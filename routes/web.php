@@ -27,6 +27,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('schedule', ScheduleController::class)->except([
         'create', 'edit'
     ]);
+
+    Route::get('/report', function () {
+        return view('report');
+    });
 });
 
 require __DIR__ . '/auth.php';

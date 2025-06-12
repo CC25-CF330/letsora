@@ -5,6 +5,12 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Route;
 
+//Api
+use App\Http\Controllers\PredictionController;
+
+Route::middleware(['auth'])->post('/predict', [PredictionController::class, 'predictFromUser']);
+
+
 Route::get('/', [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('home');
 
 Route::get('/dashboard', function () {

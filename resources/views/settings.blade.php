@@ -26,6 +26,14 @@
     <!-- Main Content -->
     <div class="flex-1 sm:ml-64 h-screen">
         <main class="h-full p-6 md:p-10 overflow-y-auto">
+
+@if ($errors->has('msg'))
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+        <strong class="font-bold">Peringatan!</strong>
+        <span class="block sm:inline">{{ $errors->first('msg') }}</span>
+    </div>
+@endif
+
             <!-- Header -->
             @include('layouts.partials.header', [
                 'title' => 'Pengaturan',
@@ -141,7 +149,7 @@
 
                             {{-- Kehadiran --}}
                             <div>
-                                <x-input-label for="attendance_percentage" :value="__('Persentase Kehadiran')" class="dark:text-gray-400"/>
+                                <x-input-label for="attendance_percentage" :value="__('Persentase Kehadiran (Max 100%)')" class="dark:text-gray-400"/>
                                 <x-text-input id="attendance_percentage" name="attendance_percentage" type="number" step="0.1" min="0" max="100"
                                     class="mt-1 block w-full dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:border-gray-500"
                                     :value="old('attendance_percentage', $user->attendance_percentage)" />
@@ -159,7 +167,7 @@
 
                             {{-- Nilai Ujian --}}
                             <div>
-                                <x-input-label for="exam_score" :value="__('Nilai Ujian')" class="dark:text-gray-400"/>
+                                <x-input-label for="exam_score" :value="__('Nilai Ujian Terakhir (1 - 100)')" class="dark:text-gray-400"/>
                                 <x-text-input id="exam_score" name="exam_score" type="number" step="0.1" min="0" max="100"
                                     class="mt-1 block w-full dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:border-gray-500"
                                     :value="old('exam_score', $user->exam_score)" />

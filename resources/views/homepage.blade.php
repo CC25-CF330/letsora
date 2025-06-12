@@ -154,7 +154,21 @@
                             <img src="{{ auth()->user()->profile_photo ? asset('storage/' . auth()->user()->profile_photo) : asset('img/profile-default.png') }}" alt="Foto Profil" class="rounded-full w-32 h-32 object-cover">
                             <h3 class="font-semibold text-lg mb-2 dark:text-white">{{ auth()->user()->name }}</h3>
                             <p class="text-sm text-gray-500 dark:text-white">{{ auth()->user()->major ?? 'Student' }}</p>
-                        </div>
+                        
+@if($errors->any())
+    <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
+        {{ $errors->first() }}
+    </div>
+@endif
+
+<form method="POST" action="/predict" class="mt-4 text-center">
+    @csrf
+    <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
+        Prediksi Rekomendasi Saya
+    </button>
+</form>
+
+                    </div>
                     </section>
 
                     <!-- Calendar Section -->

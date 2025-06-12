@@ -29,6 +29,9 @@ class ScheduleResource extends JsonResource
             'location' => $this->location,
             'instructor' => $this->instructor,
             'type' => $this->type,
+            'color' => $this->color,
+
+            'completed_at' => $this->completed_at,
             
             // Format waktu secara eksplisit ke standar yang benar
             'start_time' => $this->start_time->toIso8601String(),

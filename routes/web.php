@@ -18,15 +18,17 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // --- PERBAIKAN DI BAWAH INI ---
-
-    // 1. RUTE BARU: Tambahkan rute ini untuk diambil oleh fungsi refreshScheduleData() di JS.
     Route::get('/schedule/data', [ScheduleController::class, 'getData'])->name('schedule.data');
 
-    // 2. Gunakan Route::resource untuk rute lainnya agar lebih rapi.
     Route::resource('schedule', ScheduleController::class)->except([
         'create', 'edit'
     ]);
+    
+    Route::patch('/schedule/{schedule}/complete', [ScheduleController::class, 'markAsCompleted'])->name('schedule.complete');
+        
+    Route::get('/report', function () {
+        return view('report');
+    })->name('report');
 });
 
 require __DIR__ . '/auth.php';

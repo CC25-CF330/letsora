@@ -18,7 +18,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // --- PERBAIKAN DI BAWAH INI ---
 
     // 1. RUTE BARU: Tambahkan rute ini untuk diambil oleh fungsi refreshScheduleData() di JS.
     Route::get('/schedule/data', [ScheduleController::class, 'getData'])->name('schedule.data');

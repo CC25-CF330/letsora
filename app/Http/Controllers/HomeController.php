@@ -22,9 +22,9 @@ class HomeController extends Controller
         $endOfDay = now($userTimezone)->endOfDay();
 
         $schedulesToday = Schedule::where('user_id', $user->id)
-            ->whereBetween('start_time', [$startOfDay, $endOfDay])
-            ->orderBy('start_time')
-            ->get();
+        ->orderBy('start_time')
+        ->get();
+
 
         // Kirim jadwal DAN zona waktu pengguna ke view
         return view('homepage', [

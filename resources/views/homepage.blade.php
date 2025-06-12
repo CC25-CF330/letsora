@@ -151,7 +151,7 @@
                             </a>
                         </div>
                         <div class="flex flex-col items-center text-center">
-                            <img src="{{ auth()->user()->photo ? asset('storage/' . auth()->user()->photo) : asset('img/profile-default.png') }}" alt="Foto Profil" class="rounded-full w-16 h-16 object-cover">
+                            <img src="{{ auth()->user()->profile_photo ? asset('storage/' . auth()->user()->profile_photo) : asset('img/profile-default.png') }}" alt="Foto Profil" class="rounded-full w-32 h-32 object-cover">
                             <h3 class="font-semibold text-lg mb-2 dark:text-white">{{ auth()->user()->name }}</h3>
                             <p class="text-sm text-gray-500 dark:text-white">{{ auth()->user()->major ?? 'Student' }}</p>
                         </div>

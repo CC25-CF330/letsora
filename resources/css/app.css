@@ -1,4 +1,7 @@
 @import "flowbite/src/themes/default";
+@import "flowbite/src/themes/dark";
+@import "flowbite/src/themes/light";
+
 
 @tailwind base;
 @tailwind components;
@@ -10,3 +13,4 @@
 @plugin "flowbite/plugin";
 
 @source "../../node_modules/flowbite";
+

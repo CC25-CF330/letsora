@@ -125,6 +125,7 @@
             white-space: normal;
         }
     </style>
+    
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 h-full overflow-hidden">
     <!-- Sidebar -->
@@ -232,62 +233,73 @@
         </main>
     </div>
 
-    <!-- Add/Edit Schedule Modal -->
-    <div id="scheduleModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative p-4 w-full max-w-md max-h-full">
-            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white" id="modal-title">
-                        Tambah Jadwal Baru
-                    </h3>
-                    <button type="button" id="closeModalBtn" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
-                        <i class="fas fa-times"></i>
-                    </button>
+<!-- MODAL -->
+<div id="scheduleModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-2xl p-6 relative">
+        <h3 id="modal-title" class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Tambah Jadwal</h3>
+
+        <button type="button"
+                class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                onclick="closeModal()">
+            <i class="fas fa-times text-lg"></i>
+        </button>
+
+        <form id="schedule-form" method="POST" class="space-y-4">
+            @csrf
+            <input type="hidden" id="schedule-id" name="id">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="title" class="block text-sm font-medium text-gray-700 dark:text-white">Judul</label>
+                    <input type="text" id="title" name="title" required class="form-input w-full">
                 </div>
-                <form id="schedule-form" class="p-4 md:p-5">
-                    <input type="hidden" id="schedule-id" name="id">
-                    <div class="grid gap-4 mb-4 grid-cols-2">
-                        <div class="col-span-2">
-                            <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Judul</label>
-                            <input type="text" name="title" id="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
-                        </div>
-                        <div class="col-span-2">
-                            <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi</label>
-                            <textarea name="description" id="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
-                        </div>
-                        <div class="col-span-2 sm:col-span-1">
-                            <label for="start_time" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Waktu Mulai</label>
-                            <input type="datetime-local" name="start_time" id="start_time" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
-                        </div>
-                        <div class="col-span-2 sm:col-span-1">
-                            <label for="end_time" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Waktu Selesai</label>
-                            <input type="datetime-local" name="end_time" id="end_time" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
-                        </div>
-                        <div class="col-span-2">
-                            <label for="location" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Lokasi</label>
-                            <input type="text" name="location" id="location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
-                        </div>
-                        <div class="col-span-2">
-                            <label for="instructor" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pengajar</label>
-                            <input type="text" name="instructor" id="instructor" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
-                        </div>
-                        <div class="col-span-2">
-                            <label for="type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipe</label>
-                            <select name="type" id="type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
-                                <option value="class">Kelas</option>
-                                <option value="meeting">Rapat</option>
-                                <option value="personal">Personal</option>
-                            </select>
-                        </div>
-                    </div>
-                    <button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        <i class="fas fa-save me-1"></i>
-                        Simpan
-                    </button>
-                </form>
+
+                <div>
+                    <label for="type" class="block text-sm font-medium text-gray-700 dark:text-white">Tipe</label>
+                    <select id="type" name="type" required class="form-select w-full">
+                        <option value="class">Kelas</option>
+                        <option value="meeting">Rapat</option>
+                        <option value="personal">Personal</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="start_time" class="block text-sm font-medium text-gray-700 dark:text-white">Waktu Mulai</label>
+                    <input type="datetime-local" id="start_time" name="start_time" required class="form-input w-full">
+                </div>
+
+                <div>
+                    <label for="end_time" class="block text-sm font-medium text-gray-700 dark:text-white">Waktu Selesai</label>
+                    <input type="datetime-local" id="end_time" name="end_time" required class="form-input w-full">
+                </div>
             </div>
-        </div>
+
+            <div>
+                <label for="location" class="block text-sm font-medium text-gray-700 dark:text-white">Lokasi</label>
+                <input type="text" id="location" name="location" required class="form-input w-full">
+            </div>
+
+            <div>
+                <label for="instructor" class="block text-sm font-medium text-gray-700 dark:text-white">Pengajar</label>
+                <input type="text" id="instructor" name="instructor" required class="form-input w-full">
+            </div>
+
+            <div>
+                <label for="description" class="block text-sm font-medium text-gray-700 dark:text-white">Deskripsi</label>
+                <textarea id="description" name="description" rows="3" class="form-textarea w-full"></textarea>
+            </div>
+
+            <div class="flex justify-end pt-4">
+                <button type="submit"
+                        class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                    <i class="fas fa-save mr-1"></i> Simpan
+                </button>
+            </div>
+        </form>
     </div>
+</div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
     <script>
@@ -308,5 +320,18 @@
             document.documentElement.classList.add('dark');
         }
     </script>
+    @push('styles')
+<style>
+    .form-input {
+        @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5
+               dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400;
+    }
+    .form-textarea { @apply form-input; }
+    .form-select { @apply form-input; }
+</style>
+@endpush
 </body>
+
+
+
 </html>

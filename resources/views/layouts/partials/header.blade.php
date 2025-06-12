@@ -11,6 +11,6 @@
             <i class="far fa-bell text-xl"></i>
             <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white dark:border-gray-800"></span>
         </button>
-        <img src="{{ auth()->user()->photo ? asset('storage/' . auth()->user()->photo) : asset('img/profile-default.png') }}" alt="Foto Profil" class="rounded-full w-10 h-10 object-cover">
+        <img src="{{ auth()->user()->profile_photo ? asset('storage/' . auth()->user()->profile_photo) : asset('img/profile-default.png') }}" alt="Foto Profil" class="rounded-full w-10 h-10 object-cover">
     </div>
 </header>

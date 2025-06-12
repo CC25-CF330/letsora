@@ -59,7 +59,11 @@ class ScheduleController extends Controller
 
     public function update(Request $request, Schedule $schedule)
     {
-        $this->authorize('update', $schedule);
+        // $this->authorize('update', $schedule);
+
+        if ($schedule->user_id !== Auth::id()) {
+        abort(403, 'Unauthorized action.');
+        }
 
         $validated = $request->validate([
             'title' => 'required|string|max:255',

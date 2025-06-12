@@ -33,7 +33,7 @@
             ])
 
             {{-- Formulir utama yang mencakup semua bagian --}}
-            <form method="post" action="{{ route('profile.update') }}">
+            <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
                 @csrf
                 @method('patch')
 
@@ -81,16 +81,29 @@
                     <!-- Tab Profile -->
                     <div x-show="tab === 'profile'" x-cloak>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                            <!-- Profile Card (Dibuat Dinamis) -->
                             <div class="md:col-span-1 bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-2xl p-8 flex flex-col items-center self-start">
-                                <img src="https://ui-avatars.com/api/?name={{ urlencode($user->name) }}&size=128&color=7F9CF5&background=EBF4FF" alt="Profile" class="w-32 h-32 rounded-full object-cover mb-4">
+                                <!-- Tombol ganti foto -->
+                                <div class="mb-2 w-full flex justify-end">
+                                    <label for="profile_photo" class="cursor-pointer inline-flex items-center px-2 py-1 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium rounded">
+                                        <i class="fas fa-camera mr-1"></i> Ganti Foto
+                                    </label>
+                                    <input type="file" id="profile_photo" name="profile_photo" accept="image/*" class="hidden">
+                                </div>
+                                <!-- Gambar profil -->
+                                <div class="relative w-40 h-40 rounded-full overflow-hidden mb-4 shadow border border-gray-300 dark:border-gray-600">
+                                    <img src="{{ auth()->user()->profile_photo ? asset('storage/' . auth()->user()->profile_photo) : asset('img/profile-default.png') }}"
+                                        alt="Foto Profil"
+                                        class="w-full h-full object-cover object-center" />
+                                </div>
+
+
+
                                 <div class="text-center">
                                     <div class="font-semibold text-lg dark:text-white">{{ $user->name }}</div>
                                     <div class="text-gray-500 dark:text-gray-400 text-sm mt-1">{{ $user->email }}</div>
                                 </div>
-                                {{-- Anda bisa menambahkan info lain di sini jika ada di database --}}
                             </div>
-
+                            
                             <!-- Edit Profile Form (Sekarang bagian dari form utama) -->
                             <div class="md:col-span-2 space-y-6">
                                 {{-- Nama --}}
@@ -106,6 +119,57 @@
                                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                     {{-- ... bagian verifikasi email ... --}}
                                 </div>
+                                {{-- Umur --}}
+                            <div>
+                                <x-input-label for="age" :value="__('Umur')" class="dark:text-gray-400"/>
+                                <x-text-input id="age" name="age" type="number" min="17" max="30"
+                                    class="mt-1 block w-full dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:border-gray-500"
+                                    :value="old('age', $user->age)" />
+                                <x-input-error :messages="$errors->get('age')" class="mt-2" />
+                            </div>
+
+                            {{-- Jenis Kelamin --}}
+                            <div>
+                                <x-input-label for="gender_encoded" :value="__('Jenis Kelamin')" class="dark:text-gray-400"/>
+                                <select id="gender_encoded" name="gender_encoded"
+                                    class="mt-1 block w-full dark:bg-gray-700 dark:text-white dark:border-gray-500 border rounded">
+                                    <option value="0" {{ old('gender_encoded', $user->gender_encoded) == 0 ? 'selected' : '' }}>Laki-laki</option>
+                                    <option value="1" {{ old('gender_encoded', $user->gender_encoded) == 1 ? 'selected' : '' }}>Perempuan</option>
+                                </select>
+                                <x-input-error :messages="$errors->get('gender_encoded')" class="mt-2" />
+                            </div>
+
+                            {{-- Kehadiran --}}
+                            <div>
+                                <x-input-label for="attendance_percentage" :value="__('Persentase Kehadiran')" class="dark:text-gray-400"/>
+                                <x-text-input id="attendance_percentage" name="attendance_percentage" type="number" step="0.1" min="0" max="100"
+                                    class="mt-1 block w-full dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:border-gray-500"
+                                    :value="old('attendance_percentage', $user->attendance_percentage)" />
+                                <x-input-error :messages="$errors->get('attendance_percentage')" class="mt-2" />
+                            </div>
+
+                            {{-- Mental Health --}}
+                            <div>
+                                <x-input-label for="mental_health_rating" :value="__('Rating Mental Health (1-10)')" class="dark:text-gray-400"/>
+                                <x-text-input id="mental_health_rating" name="mental_health_rating" type="number" step="0.1" min="1" max="10"
+                                    class="mt-1 block w-full dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:border-gray-500"
+                                    :value="old('mental_health_rating', $user->mental_health_rating)" />
+                                <x-input-error :messages="$errors->get('mental_health_rating')" class="mt-2" />
+                            </div>
+
+                            {{-- Nilai Ujian --}}
+                            <div>
+                                <x-input-label for="exam_score" :value="__('Nilai Ujian')" class="dark:text-gray-400"/>
+                                <x-text-input id="exam_score" name="exam_score" type="number" step="0.1" min="0" max="100"
+                                    class="mt-1 block w-full dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:border-gray-500"
+                                    :value="old('exam_score', $user->exam_score)" />
+                                <x-input-error :messages="$errors->get('exam_score')" class="mt-2" />
+                            </div>
+
+                            
+
+                            {{-- Keterampilan --}}
+
                             </div>
                         </div>
                     </div>

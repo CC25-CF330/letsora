@@ -8,17 +8,14 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
-
-// Catatan: Jika Anda tidak menggunakan Inertia, 
-// beberapa 'use' statement di atas mungkin berbeda. 
-// Fokus pada logika di dalam method.
 
 class ProfileController extends Controller
 {
     /**
-     * Method BARU: Menampilkan halaman pengaturan.
+     * Menampilkan halaman pengaturan.
      */
     public function settings(Request $request)
     {
@@ -28,12 +25,10 @@ class ProfileController extends Controller
     }
 
     /**
-     * Menampilkan form edit profil (ini method bawaan Breeze, kita biarkan saja).
+     * Menampilkan form edit profil (jika menggunakan Inertia).
      */
-    public function edit(Request $request)//: Response
+    public function edit(Request $request)
     {
-        // Kode ini mungkin berbeda jika Anda tidak pakai Inertia.
-        // Anda bisa mengarahkannya ke halaman settings jika mau.
         return view('profile.edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
@@ -47,21 +42,39 @@ class ProfileController extends Controller
     {
         // Ambil data yang sudah divalidasi dari ProfileUpdateRequest
         $validatedData = $request->validated();
-        
-        // TAMBAHKAN VALIDASI UNTUK TIMEZONE
+
+        // Tambahkan validasi tambahan untuk timezone, data diri, dan foto profil
         $validatedData = array_merge($validatedData, $request->validate([
             'timezone' => ['nullable', 'string', 'timezone:all'],
+            'age' => ['nullable', 'integer', 'min:17', 'max:30'],
+            'gender_encoded' => ['nullable', 'in:0,1'],
+            'attendance_percentage' => ['nullable', 'numeric', 'min:0', 'max:100'],
+            'mental_health_rating' => ['nullable', 'numeric', 'min:1', 'max:10'],
+            'exam_score' => ['nullable', 'numeric', 'min:0', 'max:100'],
+            'profile_photo' => ['nullable', 'image', 'max:2048'],
         ]));
 
-        // Isi data user dengan data yang sudah divalidasi
+        if ($request->hasFile('profile_photo')) {
+        $file = $request->file('profile_photo');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $path = $file->storeAs('profile_photos', $filename, 'public');
+
+        // Tambahkan path ke data yang akan di-fill
+        $validatedData['profile_photo'] = $path;
+        }
+
+
+
+
+        // Update atribut user
         $request->user()->fill($validatedData);
 
-        // Reset verifikasi email jika email diubah
+        // Reset verifikasi email jika email berubah
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
 
-        // Simpan semua perubahan
+        // Simpan ke database
         $request->user()->save();
 
         return Redirect::route('settings')->with('status', 'profile-updated');

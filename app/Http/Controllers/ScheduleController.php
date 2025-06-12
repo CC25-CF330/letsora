@@ -34,7 +34,7 @@ class ScheduleController extends Controller
         ]);
 
         $schedule = Schedule::create([
-            'user_id' => Auth::id(),
+            'user_id' => Auth::id(), // ✅ memastikan user_id disimpan
             'title' => $validated['title'],
             'description' => $validated['description'],
             'start_time' => Carbon::parse($validated['start_time']),
@@ -62,7 +62,7 @@ class ScheduleController extends Controller
         // $this->authorize('update', $schedule);
 
         if ($schedule->user_id !== Auth::id()) {
-        abort(403, 'Unauthorized action.');
+            abort(403, 'Unauthorized action.');
         }
 
         $validated = $request->validate([
@@ -102,5 +102,3 @@ class ScheduleController extends Controller
         ]);
     }
 }
-
-//

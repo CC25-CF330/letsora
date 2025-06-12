@@ -56,6 +56,19 @@
             --fc-day-header-text-color: #9ca3af;
         }
 
+            .form-input {
+                @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5
+                    dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400;
+            }
+
+            .form-textarea {
+                @apply form-input;
+            }
+
+            .form-select {
+                @apply form-input;
+            }
+
         #calendar {
             background-color: var(--fc-bg-color);
             color: var(--fc-text-color);
@@ -234,8 +247,8 @@
     </div>
 
 <!-- MODAL -->
-<div id="scheduleModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
-
+<div id="scheduleModal" tabindex="-1"
+     class="fixed inset-0 z-50 items-center justify-center bg-black bg-opacity-50 hidden">
     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-2xl p-6 relative">
         <h3 id="modal-title" class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Tambah Jadwal</h3>
 
@@ -320,7 +333,8 @@
             document.documentElement.classList.add('dark');
         }
     </script>
-    @push('styles')
+</body>
+@push('styles')
 <style>
     .form-input {
         @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5
@@ -330,8 +344,5 @@
     .form-select { @apply form-input; }
 </style>
 @endpush
-</body>
-
-
 
 </html>

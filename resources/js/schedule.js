@@ -1,3 +1,8 @@
+axios.defaults.headers.common['X-CSRF-TOKEN'] =
+  document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
 let calendar;
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -208,7 +213,15 @@ async function handleScheduleSubmit(event) {
 window.deleteSchedule = async function(id) {
     if (!confirm("Apakah Anda yakin ingin menghapus jadwal ini?")) return;
     try {
-        const response = await axios.delete(`/schedule/${id}`);
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        const response = await axios.delete(`/schedule/${id}`, {
+            headers: {
+                'X-CSRF-TOKEN': csrfToken,
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        });
+
         showNotification(response.data.message || 'Jadwal berhasil dihapus', 'success');
         closeModal(document.getElementById("scheduleModal"));
         refreshScheduleData();
@@ -217,6 +230,8 @@ window.deleteSchedule = async function(id) {
         showNotification("Gagal menghapus jadwal.", 'error');
     }
 }
+
+
 
 window.editSchedule = function(id) {
     const event = calendar.getEventById(id);

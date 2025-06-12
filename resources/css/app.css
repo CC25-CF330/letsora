@@ -1,6 +1,6 @@
 @import "flowbite/src/themes/default";
-@import "flowbite/src/themes/dark";
-@import "flowbite/src/themes/light";
+/* @import "flowbite/src/themes/dark"; */
+/* @import "flowbite/src/themes/light"; */
 
 
 @tailwind base;

@@ -1,7 +1,4 @@
-/* Flowbite styles - harus di atas! */
 @import "flowbite/dist/flowbite.css";
-
-/* Tailwind core styles */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

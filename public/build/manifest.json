@@ -1,0 +1,37 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-DcwlkOSi.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/js/activity.js": {
+    "file": "assets/activity-Dt2ygsD8.js",
+    "name": "activity",
+    "src": "resources/js/activity.js",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-D2n5ILS-.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  },
+  "resources/js/calendar.js": {
+    "file": "assets/calendar-Bq7dDjCF.js",
+    "name": "calendar",
+    "src": "resources/js/calendar.js",
+    "isEntry": true
+  },
+  "resources/js/schedule.js": {
+    "file": "assets/schedule-CRh7tOFV.js",
+    "name": "schedule",
+    "src": "resources/js/schedule.js",
+    "isEntry": true
+  },
+  "resources/js/timer.js": {
+    "file": "assets/timer-DRHF9sbn.js",
+    "name": "timer",
+    "src": "resources/js/timer.js",
+    "isEntry": true
+  }
+}
